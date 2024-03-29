@@ -18,5 +18,5 @@ new Vue({
   beforeCreate () {
     Vue.prototype.$bus = this // 安装全局事件总线
   },
-  render: (h) => h(App)//渲染函数
-}).$mount('#app')     //手动挂载
+  render: (h) => h(App)// 渲染函数
+}).$mount('#app') // 手动挂载
