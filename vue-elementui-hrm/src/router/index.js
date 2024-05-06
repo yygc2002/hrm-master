@@ -15,7 +15,9 @@ Vue.use(VueRouter) // 全局引入路由
 
 // 静态路由
 const routes = [{
-  path: '/login', name: 'login', component: () => import('../views/login')
+  path: '/login',
+  name: 'login',
+  component: () => import('../views/login')
 }]
 
 // router实例
@@ -59,6 +61,25 @@ export const setDynamicRoute = (menuList) => {
     }
     dynamicRoute.children.push(route)
   })
+  const route = {
+    path: 'information',
+    name: 'information',
+    component: () => import('../views/information/index.vue'),
+    children: [
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('../views/information/detail')
+      },
+      {
+        path: 'worked',
+        name: 'worked',
+        component: () => import('../views/information/worked')
+      }]
+  }
+
+  dynamicRoute.children.push(route)
+
   dynamicRoute.children.push(
     // 映射到home页面
     {
@@ -69,7 +90,8 @@ export const setDynamicRoute = (menuList) => {
     {
       path: '*',
       component: () => import('../views/error')
-    })
+    }
+  )
 
   router.addRoute(dynamicRoute) // addRoute()只负责添加路由，但不去重
 }

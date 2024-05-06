@@ -2,8 +2,12 @@
   <div class="staff">
     <div class="staffNav">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">基本信息</el-menu-item>
-        <el-menu-item index="2">工作经历</el-menu-item>
+        <el-menu-item index="1">
+          <router-link to="/information/detail">基本信息</router-link>
+        </el-menu-item>
+        <el-menu-item index="2">
+          <router-link to="/information/worked">工作经历</router-link>
+        </el-menu-item>
         <el-menu-item index="3" disabled>在司经历</el-menu-item>
         <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">教育经历</a></el-menu-item>
         <el-menu-item index="5">劳动合同</el-menu-item>
