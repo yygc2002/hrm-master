@@ -3,28 +3,69 @@ package com.qiujie.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qiujie.dto.Response;
 import com.qiujie.dto.ResponseDTO;
-import generator.domain.SysInformation;
-import generator.mapper.SysInformationMapper;
-import generator.service.impl.SysInformationServiceImpl;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-import java.sql.Wrapper;
+import com.qiujie.entity.InfWorkExperience;
+import com.qiujie.entity.InfWorkingExperience;
+import com.qiujie.entity.SysInformation;
+import com.qiujie.mapper.SysInformationMapper;
+import com.qiujie.service.SysInformationService;
+import com.qiujie.service.impl.SysInformationServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/information")
 public class InformationController {
-    @Resource
-    SysInformationServiceImpl sysInformationService;
 
-    @Resource
-    SysInformationMapper sysInformationMapper;
+    @Autowired
+    SysInformationService sysInformationService;
 
-    @RequestMapping("/detail")
-    ResponseDTO getStaffInformationDetailById(@RequestParam Integer id){
-        return Response.success(sysInformationMapper.selectOne(new QueryWrapper<SysInformation>().eq("staff_id",id)));
+    @GetMapping("/detail/{id}")
+    ResponseDTO getStaffInformationDetailById(@PathVariable Integer id){
+        return sysInformationService.getStaffInformationDetailById(id);
     }
 
+    @PostMapping("/detail/save")
+    ResponseDTO saveStaffInformationDetail(@RequestBody SysInformation sysInformation){
+        return sysInformationService.saveStaffInformationDetail(sysInformation);
+    }
+
+    @GetMapping("/experience/{id}")
+    ResponseDTO getStaffInformationWorkExperience(@PathVariable Integer id){
+        return sysInformationService.getStaffInformationWorkExperience(id);
+    }
+
+    @PostMapping("/experience/save")
+    ResponseDTO saveStaffInformationWorkExperience(@RequestBody InfWorkExperience infWorkExperience){
+        return sysInformationService.saveStaffInformationWorkExperience(infWorkExperience);
+    }
+
+    @PostMapping("/experience/add")
+    ResponseDTO addStaffInformationWorkExperience(@RequestBody InfWorkExperience infWorkExperience){
+        return sysInformationService.addStaffInformationWorkExperience(infWorkExperience);
+    }
+
+    @GetMapping("/experience/delete/{id}")
+    ResponseDTO deleteStaffInformationWorkExperience(@PathVariable Integer id){
+        return sysInformationService.deleteStaffInformationWorkExperience(id);
+    }
+
+    @GetMapping("experience/getWorkingExperience/{id}")
+    ResponseDTO getStaffInformationWorkingExperience(@PathVariable Integer id){
+        return sysInformationService.getStaffInformationWorkingExperience(id);
+    }
+
+    @PostMapping("experience/addWorkingExperience")
+    ResponseDTO addStaffInformationWorkingExperience(@RequestBody InfWorkingExperience infWorkingExperience){
+        return sysInformationService.addStaffInformationWorkingExperience(infWorkingExperience);
+    }
+
+    @PostMapping("experience/saveWorkingExperience")
+    ResponseDTO saveWorkingExperience(@RequestBody InfWorkingExperience infWorkingExperience){
+        return sysInformationService.saveStaffInformationWorkingExperience(infWorkingExperience);
+    }
+
+    @GetMapping("experience/deleteWorkingExperience/{id}")
+    ResponseDTO deleteWorkingExperience(@PathVariable Integer id){
+        return sysInformationService.deleteStaffInformationWorkingExperience(id);
+    }
 }

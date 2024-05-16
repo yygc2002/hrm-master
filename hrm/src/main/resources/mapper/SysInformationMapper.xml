@@ -2,15 +2,49 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="generator.mapper.SysInformationMapper">
+<mapper namespace="com.qiujie.mapper.SysInformationMapper">
 
-    <resultMap id="BaseResultMap" type="generator.domain.SysInformation">
+    <resultMap id="BaseResultMap" type="com.qiujie.entity.SysInformation">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="CHAR"/>
+            <result property="location" column="location" jdbcType="CHAR"/>
+            <result property="number" column="number" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="CHAR"/>
+            <result property="sex" column="sex" jdbcType="CHAR"/>
+            <result property="domicile" column="domicile" jdbcType="CHAR"/>
+            <result property="internship" column="internship" jdbcType="CHAR"/>
+            <result property="department" column="department" jdbcType="CHAR"/>
+            <result property="ethnic" column="ethnic" jdbcType="CHAR"/>
+            <result property="political" column="political" jdbcType="CHAR"/>
+            <result property="finance" column="finance" jdbcType="CHAR"/>
+            <result property="idcard" column="idcard" jdbcType="CHAR"/>
+            <result property="birthday" column="birthday" jdbcType="CHAR"/>
+            <result property="phone" column="phone" jdbcType="CHAR"/>
+            <result property="weixin" column="weixin" jdbcType="CHAR"/>
+            <result property="emergency" column="emergency" jdbcType="CHAR"/>
+            <result property="residence" column="residence" jdbcType="CHAR"/>
+            <result property="degree" column="degree" jdbcType="CHAR"/>
+            <result property="marry" column="marry" jdbcType="CHAR"/>
+            <result property="school" column="school" jdbcType="CHAR"/>
+            <result property="major" column="major" jdbcType="CHAR"/>
+            <result property="post" column="post" jdbcType="CHAR"/>
+            <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="hobby" column="hobby" jdbcType="CHAR"/>
+            <result property="remark" column="remark" jdbcType="CHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,staff_id,name
+        id,staff_id,name,
+        location,number,type,
+        sex,domicile,internship,
+        department,ethnic,political,
+        finance,idcard,birthday,
+        phone,weixin,emergency,
+        residence,degree,marry,
+        school,major,post,
+        status,age,hobby,
+        remark
     </sql>
 </mapper>
