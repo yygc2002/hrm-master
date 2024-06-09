@@ -14,6 +14,13 @@ spring:
     path match:
       matching-strategy: ant-path-matcher
 
+  data:
+    mongodb:
+      uri: mongodb://myUserAdmin:abc123@localhost:27017/admin
+
+  main:
+    allow-circular-references: true
+
 
 mybatis-plus:
   configuration:
@@ -26,6 +33,40 @@ file:
   upload:
     path: E:/project/idea/hrm/file/ # 文件存储位置
 
+# 自定义jwt key
+jwt:
+  tokenHeader: Token #JWT存储的请求头
+  secret: mySecret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer #JWT负载中拿到的开头
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/
+      - /swagger-resources/**
+      - /**/v2/api-docs
+      - /**/*.html
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.map
+      - /login
+      - /docs/download/*
+      - /*/export
+      - /create
+      - /scan
+      - /mine
+      - /mine1
+      - /data
+
+block:
+  ##设定哈希值前difficulty位都是0时,满足计算结果
+  difficulty: 4
+  ##当前节点p2pserver端口号
+  p2pport: 7002
+  ##要连接的节点地址
+  address: ws://127.0.0.1:7001
 
 
 

@@ -1,14 +1,10 @@
 package com.qiujie.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.qiujie.dto.Response;
 import com.qiujie.dto.ResponseDTO;
 import com.qiujie.entity.InfWorkExperience;
 import com.qiujie.entity.InfWorkingExperience;
 import com.qiujie.entity.SysInformation;
-import com.qiujie.mapper.SysInformationMapper;
 import com.qiujie.service.SysInformationService;
-import com.qiujie.service.impl.SysInformationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

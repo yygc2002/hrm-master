@@ -4,7 +4,6 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.auth0.jwt.JWT;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -12,11 +11,15 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qiujie.dto.Response;
 import com.qiujie.dto.ResponseDTO;
 import com.qiujie.entity.Docs;
+import com.qiujie.entity.Staff;
 import com.qiujie.enums.BusinessStatusEnum;
 import com.qiujie.exception.ServiceException;
 import com.qiujie.mapper.DocsMapper;
+import com.qiujie.mapper.StaffMapper;
 import com.qiujie.util.HutoolExcelUtil;
+import com.qiujie.util.JwtTokenUtil;
 import com.qiujie.vo.StaffDocsVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +51,15 @@ public class DocsService extends ServiceImpl<DocsMapper, Docs> {
     @Resource
     private DocsMapper docsMapper;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Resource
+    private StaffMapper staffMapper;
+
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
+
     /**
      * 文件上传
      *
@@ -58,7 +70,10 @@ public class DocsService extends ServiceImpl<DocsMapper, Docs> {
         String token = request.getHeader("token");// 从 http 请求头中取出 token
         if (StrUtil.isNotBlank(token)) {
             // 获取token中的id
-            Integer staffId = Integer.valueOf(JWT.decode(token).getAudience().get(0));
+            //Integer staffId = Integer.valueOf(JWT.decode(token).getAudience().get(0));
+            String authToken = token.substring(this.tokenHead.length());
+            String username = jwtTokenUtil.getUserNameFromToken(authToken);
+            Integer staffId = staffMapper.selectList(new QueryWrapper<Staff>().eq("code",username)).get(0).getId();
             File fold = new File(fileUploadPath);
             // 若存储上传文件的文件夹不存在，则创建
             if (!fold.exists()) {

@@ -23,22 +23,38 @@
             <p>部门：<span>{{ staff.deptName }}</span></p>
           </div>
         </el-card>
-        <el-card style="margin-top: 20px;height:487px">
-          <el-calendar v-model="attendanceData.date">
-            <template
-              slot="dateCell"
-              slot-scope="{date, data}">
-              <span>{{ date.getDate() }}</span>
-              <!-- 使用v-if避免在没有数据的时候显示解析-->
-              <el-tag v-show="data.type==='current-month'" v-if="attendanceData.list[date.getDate() - 1]"
-                      :type="attendanceData.list[date.getDate() - 1].tagType">
-                {{ attendanceData.list[date.getDate() - 1].message }}
-              </el-tag>
-            </template>
-          </el-calendar>
+<!--        <el-card style="margin-top: 20px;height:487px">-->
+<!--          <el-calendar v-model="attendanceData.date">-->
+<!--            <template-->
+<!--              slot="dateCell"-->
+<!--              slot-scope="{date, data}">-->
+<!--              <span>{{ date.getDate() }}</span>-->
+<!--              &lt;!&ndash; 使用v-if避免在没有数据的时候显示解析&ndash;&gt;-->
+<!--              <el-tag v-show="data.type==='current-month'" v-if="attendanceData.list[date.getDate() - 1]"-->
+<!--                      :type="attendanceData.list[date.getDate() - 1].tagType">-->
+<!--                {{ attendanceData.list[date.getDate() - 1].message }}-->
+<!--              </el-tag>-->
+<!--            </template>-->
+<!--          </el-calendar>-->
         </el-card>
       </el-col>
       <el-col :span="16" style="margin-top: 20px">
+<!--        <el-card style="height: 300px">-->
+<!--          <div style="height: 300px" ref="city"></div>-->
+<!--        </el-card>-->
+        <div class="graph">
+          <el-card style="height: 300px">
+            <div style="height: 300px" ref="staff"></div>
+          </el-card>
+          <el-card style="height: 300px">
+            <div style="height: 300px" ref="department"></div>
+          </el-card>
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-row  class="home" :gutter="20">
+      <el-col :span="24" style="margin-top: 20px">
         <div class="num">
           <el-card v-for="(item,index) in countData" :key="index" :body-style="{ display: 'flex', padding: 0 }">
             <i class="icon" :class="'el-icon-' +item.icon" :style="{ background: item.color }"/>
@@ -46,17 +62,6 @@
               <p class="txt" style=" margin-bottom: 5px">{{ item.name }}</p>
               <p class="num">{{ item.value }}</p>
             </div>
-          </el-card>
-        </div>
-        <el-card style="height: 300px">
-          <div style="height: 300px" ref="city"></div>
-        </el-card>
-        <div class="graph">
-          <el-card style="height: 300px">
-            <div style="height: 300px" ref="staff"></div>
-          </el-card>
-          <el-card style="height: 300px">
-            <div style="height: 300px" ref="department"></div>
           </el-card>
         </div>
       </el-col>
@@ -135,7 +140,8 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '人数'
+          name: '人数',
+          interval: 1
         },
         series: [
           {
@@ -231,6 +237,7 @@ export default {
   computed: {
     ...mapState('staff', ['staff']),
     ...mapState('token', ['token']),
+    ...mapState('tag', ['tag']),
     headers () {
       return { token: this.token }
     },

@@ -6,7 +6,8 @@ export default {
       name: '首页',
       path: '/home',
       code: 'home'
-    }]
+    }],
+    refreshTag: '0'
   },
   mutations: {
     // 添加标签
@@ -36,6 +37,9 @@ export default {
         path: '/home',
         code: 'home'
       }]
+    },
+    SET_REFRESH (refreshTag) {
+      this.state.refreshTag = refreshTag
     }
   }
 }

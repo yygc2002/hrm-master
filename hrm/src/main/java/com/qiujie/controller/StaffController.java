@@ -18,9 +18,6 @@ import java.util.List;
  * <p>
  *  前端控制器
  * </p>
- *
- * @author qiujie
- * @since 2022-01-27
  */
 @RestController
 @RequestMapping("/staff")

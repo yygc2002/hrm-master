@@ -18,6 +18,8 @@
           <el-dropdown-item command="showInfo">个人信息</el-dropdown-item>
           <el-dropdown-item command="editPwd">修改密码</el-dropdown-item>
           <el-dropdown-item command="leave">请假</el-dropdown-item>
+          <el-dropdown-item command="signIn">签到</el-dropdown-item>
+          <el-dropdown-item command="signOut">签退</el-dropdown-item>
           <el-dropdown-item command="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -210,8 +212,10 @@
 import { checkPassword, edit, updatePassword } from '../api/staff'
 import { getDownloadApi } from '../api/docs'
 import { getLeaveBydeptId } from '../api/leave'
+import { signOutLeave, signInLeave } from '../api/attendance'
 import { add, deleteOne, edit as editLeave, getListByStaffId, getUnauditedByStaffId } from '../api/staffLeave'
 import { mapState } from 'vuex'
+import message from "element-ui/packages/message";
 
 export default {
   name: 'CommonHeader',
@@ -382,10 +386,40 @@ export default {
       } else if (command === 'leave') {
         this.leaveForm.isShow = true
         this.getListByDeptId()
+      } else if (command === 'signIn') {
+        this.handleSignIn()
+      } else if (command === 'signOut') {
+        this.handleSignOut()
       } else {
         this.$message.success('退出登录成功！')
         this.$store.dispatch('staff/logout')
       }
+    },
+    handleSignIn () {
+      signInLeave(this.staff.id).then(response => {
+        if (response.code === 200) {
+          if (response.message === '签到成功') {
+            this.$message.success(response.message)
+          } else {
+            this.$message.error(response.message)
+          }
+        } else {
+          this.$message.error('签到失败')
+        }
+      })
+    },
+    handleSignOut () {
+      signOutLeave(this.staff.id).then(response => {
+        if (response.code === 200) {
+          if (response.message === '签退成功') {
+            this.$message.success(response.message)
+          } else {
+            this.$message.error(response.message)
+          }
+        } else {
+          this.$message.error('签退失败')
+        }
+      })
     },
     getListByDeptId () {
       getLeaveBydeptId(this.staff.deptId).then(response => {

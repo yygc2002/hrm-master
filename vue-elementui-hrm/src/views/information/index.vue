@@ -11,15 +11,18 @@
         <el-menu-item index="3">
           <router-link to="/information/working">在司经历</router-link>
         </el-menu-item>
-        <el-menu-item index="4">教育经历</el-menu-item>
-        <el-menu-item index="5">劳动合同</el-menu-item>
-        <el-menu-item index="6">员工证书</el-menu-item>
-        <el-menu-item index="7">培训经历</el-menu-item>
-        <el-menu-item index="8">奖惩经历</el-menu-item>
-        <el-menu-item index="9">任命经历</el-menu-item>
-        <el-menu-item index="10">员工委派</el-menu-item>
-        <el-menu-item index="11">笔记本信息</el-menu-item>
-        <el-menu-item index="12">家庭成员</el-menu-item>
+        <el-menu-item index="4">
+          <router-link to="/information/education">教育经历</router-link>
+        </el-menu-item>
+        <el-menu-item index="5">
+          <router-link to="/information/award">奖惩经历</router-link>
+        </el-menu-item>
+        <el-menu-item index="6">
+          <router-link to="/information/appoint">任命经历</router-link>
+        </el-menu-item>
+        <el-menu-item index="7">
+          <router-link to="/information/family">家庭成员</router-link>
+        </el-menu-item>
       </el-menu>
     </div>
 

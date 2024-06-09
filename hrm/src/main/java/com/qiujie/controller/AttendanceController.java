@@ -18,9 +18,6 @@ import java.util.List;
  * <p>
  * 前端控制器
  * </p>
- *
- * @author qiujie
- * @since 2022-03-29
  */
 @RestController
 @RequestMapping("/attendance")
@@ -100,6 +97,16 @@ public class AttendanceController {
     @GetMapping("/all")
     public ResponseDTO findAll() {
         return this.attendanceService.findAll();
+    }
+
+    @GetMapping("/signIn/{id}")
+    public ResponseDTO signIn(@PathVariable Integer id){
+        return this.attendanceService.signIn(id);
+    }
+
+    @GetMapping("/signOut/{id}")
+    public ResponseDTO signOut(@PathVariable Integer id){
+        return this.attendanceService.signOut(id);
     }
 
 }

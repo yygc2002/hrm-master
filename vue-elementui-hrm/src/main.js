@@ -6,11 +6,12 @@ import './assets/less/index.less'
 
 import store from './store'
 import router from './router' // 引入vue路由
+import JsonViewer from 'vue-json-viewer'
 
 Vue.config.productionTip = false
 
 // 全局注入elementui，会引入全部的组件，增大了项目的体积
-Vue.use(ElementUI, { size: 'mini' })
+Vue.use(ElementUI, { size: 'mini' }, JsonViewer)
 
 new Vue({
   store,

@@ -80,6 +80,26 @@ export const setDynamicRoute = (menuList) => {
         path: 'working',
         name: 'working',
         component: () => import('../views/information/working')
+      },
+      {
+        path: 'appoint',
+        name: 'appoint',
+        component: () => import('../views/information/appoint')
+      },
+      {
+        path: 'award',
+        name: 'award',
+        component: () => import('../views/information/award')
+      },
+      {
+        path: 'education',
+        name: 'education',
+        component: () => import('../views/information/education')
+      },
+      {
+        path: 'family',
+        name: 'family',
+        component: () => import('../views/information/family')
       }]
   }
 

@@ -28,7 +28,7 @@ public class CodeGenerator {
 
         // 配置包名
         PackageConfig packageConfig = new PackageConfig.Builder()
-                .parent("com.hrm")
+                .parent("com.qiujie")
                 .entity("entity")
                 .service("service")
                 .serviceImpl("service.impl")

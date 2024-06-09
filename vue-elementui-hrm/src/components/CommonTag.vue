@@ -1,7 +1,7 @@
 <template>
   <div class="tag">
     <el-tag
-      size="mini"
+      size="medium"
       v-for="(item, index) in this.tagList"
       :key="index"
       :closable="item.code !== 'home'"

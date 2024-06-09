@@ -17,6 +17,7 @@ public class AdminUserDetails implements UserDetails {
         this.staff = staff;
     }
 
+
     @Override//用户权限有哪些
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

@@ -6,8 +6,8 @@
           <div><h1 style="font-weight:bold;">基本信息</h1></div>
           <div class="demo-basic--circle" style="display: flex;margin: 40px">
             <div class="block" style="margin-right: 20px;margin-left: 20px;width: 200px;">
-              <el-avatar shape="square" :size="140" src="https://empty" @error="errorHandler">
-                <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"/>
+              <el-avatar shape="square" :size="140">
+                <img :src="avatar" alt="" class="avatar"/>
               </el-avatar>
             </div>
             <div>
@@ -223,6 +223,7 @@
 <script>
 import { getOne, save } from '../../../api/information'
 import { mapState } from 'vuex'
+import { getDownloadApi } from '../../../api/docs'
 
 export default {
   name: 'detail',
@@ -262,7 +263,13 @@ export default {
   },
   computed: {
     ...mapState('staff', ['staff']),
-    ...mapState('token', ['token'])
+    ...mapState('token', ['token']),
+    downloadApi () {
+      return getDownloadApi()
+    },
+    avatar () {
+      return this.staff.avatar ? this.downloadApi + this.staff.avatar : require('../../../assets/images/avatar.png')
+    }
   },
   methods: {
     errorHandler () {

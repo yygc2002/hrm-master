@@ -5,10 +5,6 @@ import com.qiujie.entity.InfWorkExperience;
 import com.qiujie.entity.InfWorkingExperience;
 import com.qiujie.entity.SysInformation;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
 * @author 50697

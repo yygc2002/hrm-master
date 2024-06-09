@@ -3,11 +3,11 @@
     default-active="2"
     class="el-menu-vertical-demo"
     :collapse="isCollapse"
-    background-color="#545c64"
+    background-color="#63b2dc"
     text-color="#fff"
     active-text-color="#ffd04b"
   >
-    <div style="height: 60px; line-height: 60px; text-align: center">
+    <div style="height: 60px; line-height: 60px; text-align: center;background-color: #63b2dc">
       <img
         src="../assets/logo.png"
         alt=""
@@ -18,7 +18,7 @@
       </span>
     </div>
     <el-menu-item
-      v-for="item in noChildren"
+      v-for="item in noChildren.slice().reverse()"
       :key="item.id"
       :index="item.name"
       @click="clickMenu(item,item.path)"

@@ -163,7 +163,7 @@
         <el-table-column label="操作" width="190" fixed="right" align="center">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleEdit(scope.row)"
-            >明细 <i class="el-icon-edit"></i
+            >编辑当月工资 <i class="el-icon-edit"></i
             ></el-button>
           </template>
         </el-table-column>

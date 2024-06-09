@@ -41,9 +41,6 @@ import cn.hutool.core.date.DateUtil;
  * <p>
  * 服务类
  * </p>
- *
- * @author qiujie
- * @since 2022-03-29
  */
 @Service
 public class AttendanceService extends ServiceImpl<AttendanceMapper, Attendance> {
@@ -333,5 +330,76 @@ public class AttendanceService extends ServiceImpl<AttendanceMapper, Attendance>
             return Response.success(attendance);
         }
         return Response.error();
+    }
+
+    //签到
+    public ResponseDTO signIn(Integer id){
+        String today = DateUtil.today();
+        //是否有今天的数据
+        List<Attendance> attendances = this.attendanceMapper.selectList(new QueryWrapper<Attendance>()
+                        .eq("staff_id",id)
+                        .eq("attendance_date",today));
+        Dept dept = this.deptMapper.findDeptByStaffId(id);
+
+        if (!attendances.isEmpty()){
+            Attendance attendance = attendances.get(0);
+            //是否已经签到过
+            if (attendance.getMorStartTime() == null){
+                attendance.setMorStartTime(DateUtil.date().toTimestamp());
+                if (isLate(attendance,dept)){
+                    attendance.setStatus(AttendanceStatusEnum.LATE);
+                }
+                this.edit(attendance);
+            }
+            else {
+                return Response.success("今日已签到");
+            }
+        }
+        else{
+            Attendance attendance = new Attendance();
+            attendance.setStaffId(id);
+            attendance.setMorEndTime(dept.getMorEndTime());
+            attendance.setAftStartTime(dept.getAftStartTime());
+            attendance.setAttendanceDate(DateUtil.parse(today).toSqlDate());
+            attendance.setMorStartTime(DateUtil.date().toTimestamp());
+            if (this.isLate(attendance,dept)){
+                attendance.setStatus(AttendanceStatusEnum.LATE);
+            }
+            else {
+                attendance.setStatus(AttendanceStatusEnum.NORMAL);
+            }
+            this.add(attendance);
+        }
+
+        return Response.success("签到成功");
+    }
+
+    public ResponseDTO signOut(Integer id){
+        String today = DateUtil.today();
+        //是否有今天的数据
+        List<Attendance> attendances = this.attendanceMapper.selectList(new QueryWrapper<Attendance>()
+                .eq("staff_id",id)
+                .eq("attendance_date",today));
+        Dept dept = this.deptMapper.findDeptByStaffId(id);
+
+        if (!attendances.isEmpty()){
+            Attendance attendance = attendances.get(0);
+            //是否已经签退过
+            if (attendance.getAftEndTime() == null){
+                attendance.setAftEndTime(DateUtil.date().toTimestamp());
+                if (isLeaveEarly(attendance,dept)){
+                    attendance.setStatus(AttendanceStatusEnum.LEAVE_EARLY);
+                }
+                this.edit(attendance);
+            }
+            else {
+                return Response.success("今日已签退");
+            }
+        }
+        else{
+            return Response.success("今日还未签到");
+        }
+
+        return Response.success("签退成功");
     }
 }

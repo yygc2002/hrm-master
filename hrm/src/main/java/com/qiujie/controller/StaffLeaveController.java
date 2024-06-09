@@ -5,7 +5,6 @@ import com.qiujie.entity.StaffLeave;
 
 import com.qiujie.dto.ResponseDTO;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,9 +18,6 @@ import java.util.List;
  * <p>
  * 前端控制器
  * </p>
- *
- * @author qiujie
- * @since 2022-04-05
  */
 @RestController
 @RequestMapping("/staff-leave")

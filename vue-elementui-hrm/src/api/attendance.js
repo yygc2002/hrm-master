@@ -80,3 +80,17 @@ export const getImportApi = () => {
 export const getExportApi = (month) => {
   return 'http://localhost:' + process.env.VUE_APP_PORT + url + '/export/' + month
 }
+
+export const signInLeave = (id) => {
+  return request({
+    url: url + '/signIn/' + id,
+    method: 'get'
+  })
+}
+
+export const signOutLeave = (id) => {
+  return request({
+    url: url + '/signOut/' + id,
+    method: 'get'
+  })
+}

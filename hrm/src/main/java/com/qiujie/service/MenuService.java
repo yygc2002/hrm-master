@@ -1,7 +1,7 @@
 package com.qiujie.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.auth0.jwt.JWT;
+//import com.auth0.jwt.JWT;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,11 +10,16 @@ import com.qiujie.dto.Response;
 import com.qiujie.dto.ResponseDTO;
 import com.qiujie.entity.Menu;
 import com.qiujie.entity.RoleMenu;
+import com.qiujie.entity.Staff;
 import com.qiujie.entity.StaffRole;
 import com.qiujie.enums.BusinessStatusEnum;
 import com.qiujie.exception.ServiceException;
 import com.qiujie.mapper.MenuMapper;
+import com.qiujie.mapper.StaffMapper;
 import com.qiujie.util.HutoolExcelUtil;
+import com.qiujie.util.JwtTokenUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,6 +48,15 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
     @Resource
     private StaffRoleService staffRoleService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Resource
+    private StaffMapper staffMapper;
+
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
 
 
     public ResponseDTO add(Menu menu) {
@@ -173,7 +187,11 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         String token = request.getHeader("token");// 从 http 请求头中取出 token
         if (StrUtil.isNotBlank(token)) {
             // 获取token中的id
-            Integer id = Integer.valueOf(JWT.decode(token).getAudience().get(0));
+            //Integer id = Integer.valueOf(JWT.decode(token).getAudience().get(0));
+            String authToken = token.substring(this.tokenHead.length());
+            String username = jwtTokenUtil.getUserNameFromToken(authToken);
+            Integer id = staffMapper.selectList(new QueryWrapper<Staff>().eq("code",username)).get(0).getId();
+
             Set<Menu> set = new HashSet<>();
             List<StaffRole> staffRoleList = this.staffRoleService.list(new QueryWrapper<StaffRole>()
                     .eq("staff_id", id).eq("status", 1));

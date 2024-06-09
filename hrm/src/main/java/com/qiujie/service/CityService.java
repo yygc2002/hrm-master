@@ -29,9 +29,6 @@ import lombok.Data;
  * <p>
  * 服务类
  * </p>
- *
- * @author qiujie
- * @since 2022-03-23
  */
 @Data
 @Service
